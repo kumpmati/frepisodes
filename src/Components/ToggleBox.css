@@ -1,0 +1,28 @@
+.custom-checkbox {
+    font-size: .66em;
+    display: inline-block;
+    text-align: center;
+    padding: 0;
+    margin: .5em;
+    cursor: pointer;
+    border-radius: .3em;
+    transition: background-color .1s;
+    outline: 0;
+    -webkit-user-select: none;
+}
+.custom-checkbox:hover {
+    box-shadow: 0px 8px 15px rgba(0,0,0,0.5);
+}
+.custom-checkbox:active {
+    box-shadow: inset 0px 6px 8px rgba(0,0,0,0.3);
+}
+
+.custom-checkbox.yes {
+    background-color: rgb(63, 110, 41);
+}
+.custom-checkbox.either {
+    background-color: var(--background-color);
+}
+.custom-checkbox.no {
+    background-color: rgb(110, 41, 41);
+}

@@ -2,10 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import bg from './bg.jpeg';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
+    <img src={bg} alt="bg" id="background-image"></img>
     <App />
   </React.StrictMode>,
   document.getElementById('root')
