@@ -91,6 +91,9 @@ body {
     padding: .2em;
     font-size: 1.75em;
     color: white;
+    margin: 0;
+    width: calc(100% - .5em);
+    max-width: 15em;
 }
 
 .season {
@@ -148,11 +151,6 @@ body {
     font-weight: bold;
     margin-top: .6em;
     color: var(--title-color) !important;
-    cursor: pointer;
-}
-
-.episode-title:hover {
-    color: white !important;
 }
 
 .episode.isActive {
