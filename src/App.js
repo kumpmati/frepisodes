@@ -39,14 +39,6 @@ function App() {
     seasons: [1,2,3,4,5,6,7,8,9]
   });
 
-  //fetch data
-  useLayoutEffect(() => {
-    (async () => {
-      const data = await getData(query);
-      setData(data);
-    })();
-  },[]);
-
   return (
     <div className="App">
       <img id="page-logo" src={Logo}></img>
