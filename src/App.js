@@ -1,36 +1,12 @@
 import React, { useState, useLayoutEffect } from 'react';
 import Season from './Components/Season';
 import SelectionArea from './Components/SelectionArea';
+import TagInput from './Components/TagInput';
 import './App.css';
 import Logo from './logo.png';
 
-const seasonCheckBoxes = [
-  {text: "1",  id: 1,  states: ["yes", "no"]},
-  {text: "2",  id: 2,  states: ["yes", "no"]},
-  {text: "3",  id: 3,  states: ["yes", "no"]},
-  {text: "4",  id: 4,  states: ["yes", "no"]},
-  {text: "5",  id: 5,  states: ["yes", "no"]},
-  {text: "6",  id: 6,  states: ["yes", "no"]},
-  {text: "7",  id: 7,  states: ["yes", "no"]},
-  {text: "8",  id: 8,  states: ["yes", "no"]},
-  {text: "9",  id: 9,  states: ["yes", "no"]},
-  {text: "10", id: 10, states: ["yes", "no"]}
-];
-
-const onscreenCheckBoxes = [
-  {text: "Monica",  id: "monica",   states: ["either", "yes", "no"]},
-  {text: "Rachel",  id: "rachel",   states: ["either", "yes", "no"]},
-  {text: "Phoebe",  id: "phoebe",   states: ["either", "yes", "no"]},
-  {text: "Joey",    id: "joey",     states: ["either", "yes", "no"]},
-  {text: "Chandler",id: "chandler", states: ["either", "yes", "no"]},
-  {text: "Ross",    id: "ross",     states: ["either", "yes", "no"]},
-  {text: "Judy",    id: "judy",     states: ["either", "yes", "no"]},
-  {text: "Jack",    id: "jack",     states: ["either", "yes", "no"]},
-  {text: "Marcel",  id: "marcel",   states: ["either", "yes", "no"]},
-  {text: "Paolo",   id: "paolo",    states: ["either", "yes", "no"]},
-  {text: "Julie",   id: "julie",    states: ["either", "yes", "no"]},
-];
-
+import seasonCheckBoxes from './Data/seasonCheckBoxes';
+import onscreenCheckBoxes from './Data/onscreenCheckBoxes';
 function App() {
   const [data, setData] = useState([]);
   const [query, setQuery] = useState({
@@ -38,6 +14,7 @@ function App() {
     onscreen: [],
     seasons: [1,2,3,4,5,6,7,8,9]
   });
+
 
   return (
     <div className="App">
@@ -62,7 +39,7 @@ function App() {
             onChange={e => setQuery({...query, title: e.target.value.toLowerCase()})}
         />
         <br></br>
-        
+
         <SelectionArea
           title="Seasons"
           id="seasons"
@@ -75,17 +52,9 @@ function App() {
             });
         }}/>
 
-        <SelectionArea
-          title="On-screen characters"
-          id="onscreen"
-          items={onscreenCheckBoxes}
-          change={({id, state}) => {
-            const updated = updateOnscreenCharacters({id, state, query});
-            setQuery({
-              ...query,
-              onscreen: updated.sort()
-            });
-        }}/>
+        <br></br>
+        <h1>On-screen characters</h1>
+        <TagInput states={["include", "exclude"]}/>
         
       </div>
 
