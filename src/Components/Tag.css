@@ -1,0 +1,48 @@
+.tag {
+    float: left;
+    height: var(--height);
+    display: grid;
+    grid-auto-flow: column;
+    overflow: hidden;
+
+    margin-right: .25em;
+    margin-bottom: .25em;
+
+    line-height: var(--height);
+    list-style-type: none;
+
+    color: rgb(206, 206, 206);
+    background-color: var(--background-color);
+
+    border-radius: var(--height);
+    box-sizing: border-box;
+
+}
+
+.tag:hover {
+    color: var(--text-color);
+}
+
+.tag-state {
+    margin: 0;
+    width: var(--height);
+    
+    text-align: center;
+    border-radius: 100%;
+
+    color: var(--title-color);
+    background-color: transparent;
+}
+
+.tag-state:hover {
+    color: white;
+    background-color: rgba(255,255,255,0.1);
+    cursor: pointer;
+}
+.tag-text {
+    margin: 0;
+    padding-left: .25em;
+    padding-right: .75em;
+    cursor: pointer;
+    background-color: rgba(126, 43, 43, 0);
+}

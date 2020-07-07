@@ -1,19 +1,20 @@
 .selection-area {
     position: relative;
-    width: calc(50% - 1em);
-    float: left;
+    width: min-content;
     padding: 0;
     margin: .5em;
     box-sizing: border-box;
+    overflow: visible;
 }
 
 .selection-area-items {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(8em, 1fr));
+    grid-template-columns: repeat(3, 6em);
     grid-auto-rows: 4em;
     grid-auto-flow: row;
     margin: 0;
     padding: 0;
+    overflow: visible;
 }
 
 @media(max-width: 830px) {

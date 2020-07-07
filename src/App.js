@@ -1,101 +1,79 @@
 import React, { useState, useLayoutEffect } from 'react';
 import Season from './Components/Season';
-import SelectionArea from './Components/SelectionArea';
+import TagInput from './Components/TagInput';
 import './App.css';
 import Logo from './logo.png';
 
-const seasonCheckBoxes = [
-  {text: "1",  id: 1,  states: ["yes", "no"]},
-  {text: "2",  id: 2,  states: ["yes", "no"]},
-  {text: "3",  id: 3,  states: ["yes", "no"]},
-  {text: "4",  id: 4,  states: ["yes", "no"]},
-  {text: "5",  id: 5,  states: ["yes", "no"]},
-  {text: "6",  id: 6,  states: ["yes", "no"]},
-  {text: "7",  id: 7,  states: ["yes", "no"]},
-  {text: "8",  id: 8,  states: ["yes", "no"]},
-  {text: "9",  id: 9,  states: ["yes", "no"]},
-  {text: "10", id: 10, states: ["yes", "no"]}
-];
-
-const onscreenCheckBoxes = [
-  {text: "Monica",  id: "monica",   states: ["either", "yes", "no"]},
-  {text: "Rachel",  id: "rachel",   states: ["either", "yes", "no"]},
-  {text: "Phoebe",  id: "phoebe",   states: ["either", "yes", "no"]},
-  {text: "Joey",    id: "joey",     states: ["either", "yes", "no"]},
-  {text: "Chandler",id: "chandler", states: ["either", "yes", "no"]},
-  {text: "Ross",    id: "ross",     states: ["either", "yes", "no"]},
-  {text: "Judy",    id: "judy",     states: ["either", "yes", "no"]},
-  {text: "Jack",    id: "jack",     states: ["either", "yes", "no"]},
-  {text: "Marcel",  id: "marcel",   states: ["either", "yes", "no"]},
-  {text: "Paolo",   id: "paolo",    states: ["either", "yes", "no"]},
-  {text: "Julie",   id: "julie",    states: ["either", "yes", "no"]},
-];
-
 function App() {
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState({
     title: "",
     onscreen: [],
-    seasons: [1,2,3,4,5,6,7,8,9]
+    seasons: [1,2,3,4,5,6,7,8,9,10]
   });
+
+  let [characterData, setCharacterData] = useState([]);
+  const characters = ["Gunther", "Marcel", "Janice", "Paolo", "Jack", "Judy"];
+  const states = ["✓", "✕"];
+
+  async function updateData(params) {
+    setIsLoading(true);
+    const data = await getData(params);
+    setIsLoading(false);
+    return data;
+  }
+
+  //update query when character data is updated
+  useLayoutEffect(() => {
+    const newOnscreen = parseCharacters(characterData);
+    setQuery({...query, onscreen: newOnscreen});
+  }, [characterData]);
 
   return (
     <div className="App">
-      <img id="page-logo" src={Logo}></img>
+      <img id="page-logo" alt="logo" src={Logo}></img>
       
       <div id="search-settings">
-
-        <h2>Title contains:</h2>
-        <br></br>
-        <input type="text"
-            id="title-contains"
-            className="text-field"
-            name="title"
-            placeholder=""
-            onKeyDown={async e => {
-              if(e.keyCode === 13) {
-                const data = await getData(query);
-                setData(data);
-                e.preventDefault();
-              }
-            }}
-            onChange={e => setQuery({...query, title: e.target.value.toLowerCase()})}
-        />
-        <br></br>
-        
-        <SelectionArea
-          title="Seasons"
-          id="seasons"
-          items={seasonCheckBoxes}
-          change={({id, state}) => {
-            const updated = updateSeasons({id, state, query});
-            setQuery({
-              ...query,
-              seasons: updated.sort()
-            });
-        }}/>
-
-        <SelectionArea
-          title="On-screen characters"
-          id="onscreen"
-          items={onscreenCheckBoxes}
-          change={({id, state}) => {
-            const updated = updateOnscreenCharacters({id, state, query});
-            setQuery({
-              ...query,
-              onscreen: updated.sort()
-            });
-        }}/>
-        
+        <div>
+          <h1>Title contains:</h1>
+          <br></br>
+          <input type="text"
+              id="title-contains"
+              className="text-field"
+              name="title"
+              placeholder=""
+              onKeyDown={async e => {
+                if(e.keyCode === 13) {
+                  const data = await updateData(query);
+                  setData(data);
+                  e.preventDefault();
+                }
+              }}
+              onChange={e => setQuery({...query, title: e.target.value.toLowerCase()})}
+          />
+        </div>
+        <div>
+          <h1>On-screen characters</h1>
+          <TagInput
+              data={characterData}
+              handler={e => setCharacterData(e)}
+              choices={characters}
+              states={states}
+              placeholder="gunther, janice..."
+              preventDuplicates
+          />
+        </div>
       </div>
-
-      <br></br>
-      <input type="submit"
+        <input type="submit"
             id="find-button"
             value="Find"
-            onClick={async e => setData(await getData(query))}
+            onClick={async () => setData(await updateData(query))}
         />
+
+      <br></br>
       <div id="search-results">
+        {isLoading ? <p>Loading</p> : null}
         {data.map(({season, episodes}) => <Season key={"S"+season} season={season} episodes={episodes}/>)}
       </div>
     </div>
@@ -104,62 +82,54 @@ function App() {
 
 export default App;
 
-const joinStr = s => Array.isArray(s) ? s.join(";") : s;
+/*
+        <div>
+          <SelectionArea
+            title="Seasons"
+            id="seasons"
+            items={seasonCheckBoxes}
+            change={({id, state}) => {
+              const updated = updateSeasons({id, state, query});
+              setQuery({
+                ...query,
+                seasons: updated.sort()
+              });
+          }}/>
+        </div>
 
-const queryFromObj = obj => "?" + Object.keys(obj).map(key => key + "=" + joinStr(obj[key])).join("&");
+        const updateSeasons = ({id, state, query}) => {
+          let seasons = [...query.seasons];
+          
+          if(state === "yes") {
+            seasons.push(id);
+          } else if(state === "no") {
+            if(seasons.indexOf(id) > -1) {
+              seasons.splice(seasons.indexOf(id), 1);
+            }
+          }
+          return seasons;
+        };
+*/
 
-const updateSeasons = ({id, state, query}) => {
-  let seasons = [...query.seasons];
-
-  if(state === "yes") {
-    seasons.push(id);
-  } else if(state === "no") {
-    if(seasons.indexOf(id) > -1) {
-      seasons.splice(seasons.indexOf(id), 1);
-    }
-  }
-  return seasons;
-};
-
-const updateOnscreenCharacters = ({id, state, query}) => {
-  let onscreen = [...query.onscreen];
-            
-  const i = onscreen.indexOf(id) > -1 ? onscreen.indexOf(id) : onscreen.indexOf(`!${id}`);
-
-  switch(state) {
-    case "either":
-      if(i > -1) onscreen.splice(i, 1);
-    break;
-
-    case "no":
-      if(i > -1) onscreen[i] = `!${id}`;
-      else onscreen.push(`!${id}`);
-      break;
-
-    case "yes":
-      if(i > -1) onscreen[i] = `${id}`;
-      else onscreen.push(`${id}`);
-      break;
-
-    default:
-      break;
-  }
-  return onscreen;
-};
+function parseCharacters(data) {
+  return data.map(c => (c.state === "✕" ? "!" : "") + c.value.toLowerCase());
+}
 
 async function getData(params) {
   //create headers
   const headers = new Headers({
     "Authorization": `Bearer ${process.env.REACT_APP_TOKEN}`
   });
-
-  const uri = process.env.REACT_APP_URL + "" + queryFromObj(params);
+  
+  //parse url from query object
+  const uri = process.env.REACT_APP_URL + "" + objToQueryStr(params);
   //create request
   const apiRequest = new Request(uri,{
     headers: headers
   });
-
-  const data = await fetch(apiRequest, {headers});
-
-  return await data.json();
+  
+  return await (await fetch(apiRequest, {headers})).json();
 }
+
+const joinStr = s => Array.isArray(s) ? s.join(";") : s;
+const objToQueryStr = obj => "?" + Object.keys(obj).map(key => key + "=" + joinStr(obj[key])).join("&");

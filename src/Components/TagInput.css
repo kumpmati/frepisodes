@@ -1,0 +1,37 @@
+.tag-input {
+    --height: 1.75em;
+    --border-radius: .25em;
+    --padding: 1em;
+
+    display: grid;
+    width: 100%;
+    max-width: 30em;
+
+    border-radius: var(--border-radius);
+
+    box-sizing: border-box;
+}
+
+.tag-input input {
+    font-size: 1.25em;
+    width: 100%;
+    padding: .4em;
+    box-sizing: border-box;
+    background-color: var(--background-color);
+    border: 0;
+    border-radius: var(--border-radius);
+    outline: 0;
+    color: var(--text-color);
+}
+
+.tag-input .tags {
+    font-size: 1.25em;
+    display: block;
+}
+
+.tag-input .input-div {
+    position: relative;
+    margin: 0;
+    margin-bottom: 1em;
+    padding: 0;
+}

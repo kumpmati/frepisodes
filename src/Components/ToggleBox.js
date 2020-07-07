@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './ToggleBox.css';
 
 function ToggleBox(props) {
-    const {id, text, states, startValue } = props.props;
-    const change = props.change;
+    const { change, props: {id, text, states, startValue }} = props;
     const [state, setState] = useState(startValue || states[0]);
 
     useEffect(() => {
