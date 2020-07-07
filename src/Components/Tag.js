@@ -1,18 +1,21 @@
 import React from 'react';
 import './Tag.css';
 
-function SingleTag(props) {
-    //destructure props
-    const { deleteHandler, updateHandler, data: {currentState, value}} = props;
+function Tag(props) {
 
-    const text = `${currentState} ${value}`;
+    //descructure props
+    const {index, state, value, handlers: {update, remove}} = props.data;
 
     return (
-        <li className={`tag`}>
-            <p className="tag-text" onClick={e => updateHandler(value)}>{text}</p>
-            <button className="tag-delete" onClick={e => deleteHandler(value)}>X</button>
+        <li className="tag">
+            <p className="tag-state" onClick={() => update(index)}>
+                {state}
+            </p>
+            <p className="tag-text" onClick={() => remove(index)}>
+                {value}
+            </p>
         </li>
     );
 }
 
-export default SingleTag;
+export default Tag;

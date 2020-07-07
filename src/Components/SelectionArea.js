@@ -2,7 +2,8 @@ import React from 'react';
 import './SelectionArea.css';
 import ToggleBox from './ToggleBox';
 
-function SelectionArea({title, id, items, change}) {
+function SelectionArea(props) {
+    const {title, id, items, change} = props;
         return (
         <div id={"selection-area-"+id} className="selection-area">
             <h2>{title}</h2>

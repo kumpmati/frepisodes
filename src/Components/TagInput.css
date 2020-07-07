@@ -1,40 +1,37 @@
-.tag-input-container {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-auto-flow: column;
-    width: 100%;
-    height: 2.5em;
-    
-    margin: 0;
-    padding: .25em;
-    border-radius: 1.5em;
-
-    color: black;
-    background-color: white;
-}
-
 .tag-input {
-    float: left;
+    --height: 1.75em;
+    --border-radius: .25em;
+    --padding: 1em;
 
-    margin: 0;
-    padding: 0;
-    padding-left: .5em;
-    
-    border: 0;
-    outline: 0;
-
-    height: 2em;
-    font-size: 1.25em;
-
-    background-color: transparent;
-}
-
-.tags {
     display: grid;
-    grid-auto-flow: column;
+    width: 100%;
+    max-width: 30em;
 
-    margin: 0;
-    padding: 0;
+    border-radius: var(--border-radius);
+
     box-sizing: border-box;
 }
 
+.tag-input input {
+    font-size: 1.25em;
+    width: 100%;
+    padding: .4em;
+    box-sizing: border-box;
+    background-color: var(--background-color);
+    border: 0;
+    border-radius: var(--border-radius);
+    outline: 0;
+    color: var(--text-color);
+}
+
+.tag-input .tags {
+    font-size: 1.25em;
+    display: block;
+}
+
+.tag-input .input-div {
+    position: relative;
+    margin: 0;
+    margin-bottom: 1em;
+    padding: 0;
+}

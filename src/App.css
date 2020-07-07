@@ -48,10 +48,17 @@ body {
     margin-bottom: 1.5em;
 }
 
+#search-settings {
+    display: grid;
+}
 
 #search-results {
+    display: grid;
+    grid-auto-rows: auto;
+    grid-auto-flow: row;
+    width: 100%;
     margin: 0;
-    padding: 1em;
+    margin-top: 2em;
 }
 
 #find-button {
@@ -99,7 +106,8 @@ body {
 }
 
 .season-title {
-    font-size: 2.75em;
+    width: 100%;
+    font-size: 2.25em;
     font-weight: 100;
     margin: 0;
     color: lightgray;
@@ -116,10 +124,7 @@ body {
 
 .season-episodes-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    grid-auto-rows: 10em;
-    grid-auto-flow: row;
-
+    grid-auto-rows: minmax(min-content, 4em);
     overflow: hidden;
     height: auto;
 
@@ -143,10 +148,15 @@ body {
     color: var(--air-date-color);
 }
 
+.episode p {
+    margin: 0;
+}
+
 .episode-title {
-    font-size: 1.5em;
+    font-size: 1.25em;
     font-weight: bold;
     margin-top: .6em;
+    margin-bottom: .1em;
     color: var(--title-color) !important;
 }
 

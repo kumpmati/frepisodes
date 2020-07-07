@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
+import {v4} from 'uuid';
 import Episode from './Episode';
 
 function Season({ season, episodes }) {
     const [hidden, setHidden] = useState(false);
     return (
-        <div id={`s${season}`} className="season">
+        <div className="season">
 
             <h1 className="season-title" onClick={e => {
                 e.target.classList.toggle("hidden");
@@ -14,7 +15,7 @@ function Season({ season, episodes }) {
             }>{hidden ? "+" : "–"} SEASON {season}</h1>
 
             <ul id={`s${season}-episodes`} className="season-episodes-container">
-                {episodes.map(ep => <Episode key={ep.title} episode={ep} season={season} />)}
+                {episodes.map(ep => <Episode key={v4()} episode={ep} season={season} />)}
             </ul>
 
         </div>

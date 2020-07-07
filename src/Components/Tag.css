@@ -1,54 +1,48 @@
 .tag {
-    width: max-content;
+    float: left;
+    height: var(--height);
     display: grid;
     grid-auto-flow: column;
+    overflow: hidden;
 
-    height: 2.5em;
     margin-right: .25em;
-    padding-left: 1.25em;
-    padding-right: .3em;
+    margin-bottom: .25em;
 
-    line-height: 0.5em;
-
+    line-height: var(--height);
     list-style-type: none;
 
-    color: lightgray;
-    background-color: var(--lighter-background-color);
+    color: rgb(206, 206, 206);
+    background-color: var(--background-color);
 
-    border-radius: 2em;
+    border-radius: var(--height);
     box-sizing: border-box;
+
 }
 
 .tag:hover {
-    background-color: var(--background-color);
+    color: var(--text-color);
 }
 
-.tag-delete {
-    padding: 0;
-    margin-left: .5em;
-    margin-top: 0.3em;
-
-    width: 1.75em;
-    height: 1.75em;
-    line-height: 100%;
-
+.tag-state {
+    margin: 0;
+    width: var(--height);
+    
+    text-align: center;
     border-radius: 100%;
-    border: 0;
-    outline: 0;
 
-    color: gray;
+    color: var(--title-color);
     background-color: transparent;
 }
 
-.tag-text {
-    font-size: 1.25em;
-    margin-top: .80em;
-    
+.tag-state:hover {
+    color: white;
+    background-color: rgba(255,255,255,0.1);
     cursor: pointer;
 }
-
-.tag-delete:hover {
-    background-color: var(--accent-color);
-    color: var(--background-color);
+.tag-text {
+    margin: 0;
+    padding-left: .25em;
+    padding-right: .75em;
     cursor: pointer;
+    background-color: rgba(126, 43, 43, 0);
 }

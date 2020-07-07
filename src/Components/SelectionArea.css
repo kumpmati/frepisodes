@@ -1,7 +1,6 @@
 .selection-area {
     position: relative;
-    width: calc(100% - 1em);
-    float: left;
+    width: min-content;
     padding: 0;
     margin: .5em;
     box-sizing: border-box;
@@ -10,7 +9,7 @@
 
 .selection-area-items {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(8em, 1fr));
+    grid-template-columns: repeat(3, 6em);
     grid-auto-rows: 4em;
     grid-auto-flow: row;
     margin: 0;
