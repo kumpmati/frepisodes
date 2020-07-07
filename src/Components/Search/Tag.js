@@ -2,8 +2,6 @@ import React from 'react';
 import './Tag.css';
 
 function Tag(props) {
-
-    //descructure props
     const {index, state, value, handlers: {update, remove}} = props.data;
 
     return (

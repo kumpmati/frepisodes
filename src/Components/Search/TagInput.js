@@ -21,9 +21,8 @@ function TagInput(props) {
     const [matches, setMatches] = useState({items: [], selected: 0});
     const textInput = useRef(null);
 
-
     //update data in parent component when tag state changes
-    useLayoutEffect(() => handler(tags), [tags, handler]);
+    useLayoutEffect(() => handler(tags), [tags]);
 
     //determine if component should allow more tags and show dropdown autocomplete
     const canAdd = maxItems === -1 || tags.length < maxItems;
@@ -156,10 +155,10 @@ function TagInput(props) {
         <div className="tag-input">
             <div className="input-div">
                 <input
+                    className="text-field"
                     ref={textInput}
                     onChange={handleChange}
-                    onKeyDown={handleKeyDown} 
-                    autoFocus={true}
+                    onKeyDown={handleKeyDown}
                     type="text"
                     value={text}
                     placeholder={props.placeholder || null}
